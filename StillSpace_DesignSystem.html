@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StillSpace — Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+:root{
+--primary:#8B7AB8;--success:#75AA7B;--accent:#E8B89A;--telegram:#0088CC;
+--t1-l:#2C2218;--t2-l:#594E42;--t3-l:#928272;
+--t1-d:#F5EDE5;--t2-d:#BFB3A7;--t3-d:#A09386;
+--bg-l:#FFF5EB;--bg-d:#1A1612;--card-l:#FFFFFF;--card-d:#2C2622;
+--safe:#E66666;--gentle:#F2CC66;--air:#80D999;
+--gr-s:#7B5FDB;--gr-e:#9D85E8;--c-gold:#FFD700;--c-pink:#FF69B4;
+--dis-l:#C8BFB6;--dis-d:#4A4440;
+--bg:var(--bg-l);--card:var(--card-l);--t1:var(--t1-l);--t2:var(--t2-l);--t3:var(--t3-l);--dis:var(--dis-l);
+--asoft:rgba(232,184,154,.15);--bsec:rgba(232,184,154,.18);
+}
+[data-theme="dark"]{--bg:var(--bg-d);--card:var(--card-d);--t1:var(--t1-d);--t2:var(--t2-d);--t3:var(--t3-d);--dis:var(--dis-d);--asoft:rgba(232,184,154,.045);--bsec:rgba(232,184,154,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);line-height:1.6;transition:background .4s,color .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid color-mix(in srgb,var(--t3) 15%,transparent);padding:12px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Merriweather',serif;font-size:22px;font-weight:700;color:var(--primary)}
+.nl{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.nl a{text-decoration:none;color:var(--t2);font-size:13px;font-weight:500;transition:color .2s}.nl a:hover{color:var(--primary)}
+.tt-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--t3);background:transparent;color:var(--t2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s}.tt-btn:hover{border-color:var(--primary);color:var(--primary)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(139,122,184,.12) 0%,transparent 70%);border-radius:50%;animation:fl 8s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-150px;left:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,184,154,.15) 0%,transparent 70%);border-radius:50%;animation:fl 10s ease-in-out infinite reverse}
+@keyframes fl{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-20px) scale(1.05)}}
+.hero h1{font-family:'Merriweather',serif;font-size:clamp(42px,7vw,80px);font-weight:700;line-height:1.1;letter-spacing:-1px;position:relative;z-index:1}
+.hero h1 span{color:var(--primary)}
+.hero>p{font-size:18px;color:var(--t2);max-width:520px;margin-top:24px;position:relative;z-index:1}
+.badge{display:inline-block;margin-top:32px;padding:8px 20px;border-radius:100px;background:var(--asoft);color:var(--t2);font-size:13px;font-weight:600;position:relative;z-index:1}
+section{padding:80px 32px;max-width:1200px;margin:0 auto}section+section{padding-top:40px}
+.sl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--primary);margin-bottom:12px}
+.stl{font-family:'Merriweather',serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;margin-bottom:16px}
+.sd{font-size:16px;color:var(--t2);max-width:640px;margin-bottom:48px}
+h3.sub{font-weight:700;font-size:16px;margin-bottom:16px;margin-top:36px}h3.sub:first-of-type{margin-top:0}
+.card{background:var(--card);border-radius:16px;padding:24px;transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-2px);box-shadow:0 8px 32px color-mix(in srgb,var(--t1) 5%,transparent)}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+/* Swatches */
+.sr{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.sw{width:76px;text-align:center}
+.sc{width:56px;height:56px;border-radius:50%;margin:0 auto 6px;border:2px solid color-mix(in srgb,var(--t3) 12%,transparent);transition:transform .2s}.sc:hover{transform:scale(1.1)}
+.sn{font-size:10px;font-weight:600;color:var(--t1)}.sh{font-size:9px;color:var(--t3);font-family:monospace}
+/* Tables */
+table.tok{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:14px}
+table.tok th{text-align:left;padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--t3);border-bottom:2px solid color-mix(in srgb,var(--t3) 20%,transparent)}
+table.tok td{padding:12px 14px;border-bottom:1px solid color-mix(in srgb,var(--t3) 8%,transparent)}
+table.tok tr:hover td{background:var(--asoft)}
+.tn{font-weight:600;color:var(--primary);font-size:13px}.tv{font-family:monospace;font-size:12px;color:var(--t2)}
+/* Type samples */
+.ts{padding:20px 24px;border-bottom:1px solid color-mix(in srgb,var(--t3) 8%,transparent);display:flex;align-items:baseline;gap:20px}.ts:last-child{border-bottom:none}
+.tm{min-width:200px;flex-shrink:0}.tm .nm{font-weight:700;font-size:12px;color:var(--primary)}.tm .sp{font-size:10px;color:var(--t3);margin-top:2px;font-family:monospace}
+/* Buttons */
+.dr{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+.bp{padding:14px 28px;border-radius:12px;background:var(--primary);color:white;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;border:none;cursor:pointer;transition:opacity .2s,transform .15s}.bp:hover{opacity:.9;transform:translateY(-1px)}
+.bsec{padding:14px 28px;border-radius:12px;background:var(--bsec);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;border:none;cursor:pointer}
+.bsuc{padding:14px 28px;border-radius:12px;background:var(--success);color:white;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;border:none;cursor:pointer}
+.bdis{padding:14px 28px;border-radius:12px;background:var(--dis);color:var(--t3);font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;border:none;cursor:not-allowed}
+.btl{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--t2);cursor:pointer}.btl:hover{color:var(--primary)}
+.sb{padding:10px 22px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;border:none;cursor:pointer;background:var(--card);color:var(--t1);transition:all .2s}.sb.a{background:var(--primary);color:white}
+/* Spacing vis */
+.spd{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.spb{display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:36px;border-radius:4px;background:linear-gradient(135deg,var(--primary),var(--accent))}.bar:hover{transform:scaleY(1.05);transition:transform .2s}
+.lbl{font-size:9px;font-weight:700;color:var(--t3)}.val{font-size:9px;color:var(--t2);font-family:monospace}
+/* Radius */
+.rd{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.ri{width:72px;height:72px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white}.ri:hover{transform:scale(1.05);transition:transform .2s}
+/* Do/Dont */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.ddo,.ddn{padding:16px 20px;border-radius:12px;font-size:13px;line-height:1.6}
+.ddo{background:rgba(117,170,123,.1);border-left:3px solid var(--success)}.ddo strong{color:var(--success)}
+.ddn{background:rgba(230,102,102,.1);border-left:3px solid var(--safe)}.ddn strong{color:var(--safe)}
+/* A11y */
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ac{background:var(--card);border-radius:16px;padding:20px}.ac .ico{font-size:24px;margin-bottom:10px}.ac h4{font-size:15px;font-weight:700;margin-bottom:6px}.ac p{font-size:13px;color:var(--t2);line-height:1.5}
+/* Code */
+pre.cb{background:var(--card);border-radius:12px;padding:16px 20px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:1.7;color:var(--t2);overflow-x:auto;margin:12px 0 28px;border:1px solid color-mix(in srgb,var(--t3) 10%,transparent);white-space:pre}
+pre .k{color:var(--primary);font-weight:600}pre .s{color:var(--success)}pre .n{color:var(--safe)}pre .c{color:var(--t3);font-style:italic}
+/* Mood */
+.mr{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.mi{flex:1;min-width:120px;padding:16px;border-radius:12px;text-align:center;color:white;font-weight:600;font-size:13px}
+/* Phone mockup */
+.phone{width:280px;min-height:500px;border-radius:36px;border:3px solid color-mix(in srgb,var(--t3) 20%,transparent);padding:24px 16px;position:relative;overflow:hidden;flex-shrink:0}
+.screen-img{width:280px;min-height:500px;border-radius:32px;border:3px solid color-mix(in srgb,var(--t3) 15%,transparent);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--card);position:relative}
+.screen-img img{width:100%;height:100%;object-fit:cover;border-radius:29px}
+.screen-img .placeholder{font-size:13px;color:var(--t3);text-align:center;padding:20px}
+.phone-bar{height:28px;width:100px;border-radius:14px;background:color-mix(in srgb,var(--t3) 15%,transparent);margin:0 auto 16px}
+.phone .ph-title{font-family:'Merriweather',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.phone .ph-sub{font-size:13px;color:var(--t2);margin-bottom:16px}
+.phone .ph-card{background:var(--asoft);border-radius:12px;padding:12px;margin-bottom:8px;font-size:12px}
+.phone .ph-btn{padding:10px;border-radius:10px;background:var(--primary);color:white;text-align:center;font-size:13px;font-weight:600;margin-top:12px}
+.phone .ph-btn-sec{padding:10px;border-radius:10px;background:var(--bsec);color:var(--t1);text-align:center;font-size:13px;font-weight:600;margin-top:8px}
+.phone .ph-link{font-size:12px;font-weight:500;color:var(--t2);text-align:center;margin-top:10px}
+.phone .ph-emoji{font-size:36px;text-align:center;margin-bottom:8px}
+.phone .ph-chart{height:60px;background:linear-gradient(90deg,var(--safe) 15%,var(--gentle) 15% 50%,var(--air) 50%);border-radius:8px;margin-bottom:8px;opacity:.7}
+.phone .ph-pill{display:inline-block;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:600;margin-right:4px}
+.screen-row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;margin-bottom:40px}
+.screen-desc{flex:1;min-width:260px}
+.screen-desc h4{font-size:18px;font-weight:700;margin-bottom:8px}
+.screen-desc p{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:12px}
+.screen-desc .tag{display:inline-block;padding:3px 8px;border-radius:6px;background:var(--asoft);font-size:11px;font-weight:600;color:var(--primary);margin-right:4px;margin-bottom:4px}
+/* States grid */
+.states-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:28px}
+.state-item{background:var(--card);border-radius:12px;padding:14px;text-align:center}
+.state-item .s-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px}
+/* Scroll anim */
+.fi{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}.fi.v{opacity:1;transform:translateY(0)}
+footer{text-align:center;padding:48px 32px;color:var(--t3);font-size:12px}
+@media(max-width:768px){nav{padding:10px 16px}.nl{gap:8px}.nl a{font-size:11px}section{padding:60px 16px}.hero{padding:100px 16px 60px}.dd{grid-template-columns:1fr}.ts{flex-direction:column;gap:6px}.tm{min-width:auto}.screen-row{flex-direction:column}.phone{width:100%;max-width:300px}}
+</style>
+</head>
+<body>
+<nav><div class="logo">StillSpace</div><div class="nl">
+<a href="#principles">Principles</a><a href="#colors">Colors</a><a href="#type">Type</a><a href="#spacing">Spacing</a><a href="#comp">Components</a><a href="#states">States</a><a href="#screens">Screens</a><a href="#a11y">A11y</a><a href="#motion">Motion</a><a href="#handoff">Handoff</a>
+<button class="tt-btn" onclick="toggleTheme()">☀</button></div></nav>
+
+<div class="hero"><h1>Still<span>Space</span><br>Design System</h1><p>A warm, caring design system for a mental health support app. Every pixel is about care.</p><div class="badge">v2.0 · February 2026 · iOS 16+</div></div>
+<!-- 01 PRINCIPLES -->
+<section id="principles" class="fi"><div class="sl">01 · Principles</div><div class="stl">Design Philosophy</div><div class="sd">StillSpace is a quiet place people come to in their hardest moments. The design reflects this.</div>
+<div class="g3">
+<div class="card"><div style="font-size:28px;margin-bottom:10px">🫂</div><h4 style="font-weight:700;margin-bottom:6px">Warmth First</h4><p style="font-size:13px;color:var(--t2)">Warm colors, soft shapes, no aggression. The interface feels like a hug — never pushes, never rushes.</p></div>
+<div class="card"><div style="font-size:28px;margin-bottom:10px">🌿</div><h4 style="font-weight:700;margin-bottom:6px">Gentle Clarity</h4><p style="font-size:13px;color:var(--t2)">Minimal cognitive load. One screen — one action. Copy is caring, not clinical.</p></div>
+<div class="card"><div style="font-size:28px;margin-bottom:10px">✨</div><h4 style="font-weight:700;margin-bottom:6px">Quiet Delight</h4><p style="font-size:13px;color:var(--t2)">Micro-joys: gentle animations, heartbeat haptics, confetti after self-care moments.</p></div>
+</div></section>
+
+<!-- 02 COLORS -->
+<section id="colors" class="fi"><div class="sl">02 · Color Tokens</div><div class="stl">Colors</div><div class="sd">All colors are explicit hex values. To change a color — edit one line in ColorPalette.swift.</div>
+
+<h3 class="sub">Brand</h3>
+<div class="sr"><div class="sw"><div class="sc" style="background:#8B7AB8"></div><div class="sn">Primary</div><div class="sh">#8B7AB8</div></div><div class="sw"><div class="sc" style="background:#75AA7B"></div><div class="sn">Success</div><div class="sh">#75AA7B</div></div><div class="sw"><div class="sc" style="background:#E8B89A"></div><div class="sn">Accent</div><div class="sh">#E8B89A</div></div><div class="sw"><div class="sc" style="background:#0088CC"></div><div class="sn">Telegram</div><div class="sh">#0088CC</div></div></div>
+
+<h3 class="sub">Text — Light Mode</h3>
+<div class="sr"><div class="sw"><div class="sc" style="background:#2C2218"></div><div class="sn">Primary</div><div class="sh">#2C2218</div></div><div class="sw"><div class="sc" style="background:#594E42"></div><div class="sn">Secondary</div><div class="sh">#594E42</div></div><div class="sw"><div class="sc" style="background:#928272"></div><div class="sn">Tertiary</div><div class="sh">#928272</div></div></div>
+
+<h3 class="sub">Text — Dark Mode</h3>
+<div class="sr"><div class="sw"><div class="sc" style="background:#F5EDE5"></div><div class="sn">Primary</div><div class="sh">#F5EDE5</div></div><div class="sw"><div class="sc" style="background:#BFB3A7"></div><div class="sn">Secondary</div><div class="sh">#BFB3A7</div></div><div class="sw"><div class="sc" style="background:#A09386"></div><div class="sn">Tertiary</div><div class="sh">#A09386</div></div></div>
+
+<h3 class="sub">Backgrounds</h3>
+<div class="sr"><div class="sw"><div class="sc" style="background:#FFF5EB;border-color:#E8D5C0"></div><div class="sn">Day BG</div><div class="sh">#FFF5EB</div></div><div class="sw"><div class="sc" style="background:#1A1612"></div><div class="sn">Night BG</div><div class="sh">#1A1612</div></div><div class="sw"><div class="sc" style="background:#FFF;border-color:#E8D5C0"></div><div class="sn">Day Card</div><div class="sh">#FFFFFF</div></div><div class="sw"><div class="sc" style="background:#2C2622"></div><div class="sn">Night Card</div><div class="sh">#2C2622</div></div></div>
+
+<h3 class="sub">Mood Chart</h3>
+<div class="mr"><div class="mi" style="background:#E66666">😌 Safe · #E66666</div><div class="mi" style="background:#F2CC66;color:#2C2218">😐 Gentle · #F2CC66</div><div class="mi" style="background:#80D999;color:#2C2218">😔 Air · #80D999</div></div>
+
+<h3 class="sub">Gradient & Confetti</h3>
+<div class="sr"><div class="sw"><div class="sc" style="background:linear-gradient(135deg,#7B5FDB,#9D85E8)"></div><div class="sn">Onboarding</div><div class="sh">#7B5F→9D85</div></div><div class="sw"><div class="sc" style="background:#FFD700"></div><div class="sn">Gold</div><div class="sh">#FFD700</div></div><div class="sw"><div class="sc" style="background:#FF69B4"></div><div class="sn">Pink</div><div class="sh">#FF69B4</div></div></div>
+
+<h3 class="sub">Adaptive Implementation</h3>
+<pre class="cb"><span class="c">// Adaptive — auto-switches light↔dark via UIColor traits</span>
+<span class="k">static let</span> textSecondary = Color(UIColor { traits <span class="k">in</span>
+    traits.userInterfaceStyle == .dark
+        ? UIColor(Color(hex: <span class="s">"BFB3A7"</span>))  <span class="c">// dark</span>
+        : UIColor(Color(hex: <span class="s">"594E42"</span>))  <span class="c">// light</span>
+})</pre>
+</section>
+
+<!-- 03 TYPE -->
+<section id="type" class="fi"><div class="sl">03 · Typography</div><div class="stl">Typography</div><div class="sd">Merriweather Bold for headings. System (SF Pro) for body. All sizes in FontExtension.swift.</div>
+<div class="card" style="padding:0;overflow:hidden">
+<div class="ts"><div class="tm"><div class="nm">.screenTitle()</div><div class="sp">Merriweather 700 · 32pt</div></div><div style="font-family:'Merriweather',serif;font-size:32px;font-weight:700;flex:1">You're not alone</div></div>
+<div class="ts"><div class="tm"><div class="nm">.sectionTitle()</div><div class="sp">Merriweather 700 · 28pt</div></div><div style="font-family:'Merriweather',serif;font-size:28px;font-weight:700;flex:1">How are you today?</div></div>
+<div class="ts"><div class="tm"><div class="nm">.cardTitle()</div><div class="sp">SF Pro Semibold · 20pt</div></div><div style="font-size:20px;font-weight:600;flex:1">Self-care moments</div></div>
+<div class="ts"><div class="tm"><div class="nm">.bodyMedium()</div><div class="sp">SF Pro Medium · 20pt</div></div><div style="font-size:20px;font-weight:500;flex:1">Today is especially hard</div></div>
+<div class="ts"><div class="tm"><div class="nm">.appButtonText</div><div class="sp">SF Pro Semibold · 16pt</div></div><div style="font-size:16px;font-weight:600;flex:1">Get support</div></div>
+<div class="ts"><div class="tm"><div class="nm">.bodyPrimary()</div><div class="sp">SF Pro Regular · 16pt</div></div><div style="font-size:16px;flex:1">My feelings matter</div></div>
+<div class="ts"><div class="tm"><div class="nm">.bodySecondary()</div><div class="sp">SF Pro Regular · 16pt</div></div><div style="font-size:16px;color:var(--t2);flex:1">Subtitles and descriptions</div></div>
+<div class="ts"><div class="tm"><div class="nm">.textLink()</div><div class="sp">SF Pro Medium · 15pt</div></div><div style="font-size:15px;font-weight:500;color:var(--t2);flex:1">Try something else</div></div>
+<div class="ts"><div class="tm"><div class="nm">.label()</div><div class="sp">SF Pro Regular · 14pt</div></div><div style="font-size:14px;color:var(--t2);flex:1">Language · Theme</div></div>
+<div class="ts"><div class="tm"><div class="nm">.caption()</div><div class="sp">SF Pro Regular · 14pt</div></div><div style="font-size:14px;color:var(--t2);flex:1">Feb 13 · Cognitive therapy</div></div>
+<div class="ts"><div class="tm"><div class="nm">.captionTertiary()</div><div class="sp">SF Pro Regular · 14pt</div></div><div style="font-size:14px;color:var(--t3);flex:1">Timestamps, placeholders</div></div>
+</div>
+
+<h3 class="sub" style="margin-top:48px">Token → Modifier Map</h3>
+<table class="tok"><thead><tr><th>Modifier</th><th>Font Token</th><th>Size</th><th>Weight</th><th>Color</th></tr></thead><tbody>
+<tr><td class="tn">.screenTitle()</td><td class="tv">.appTitle</td><td>32</td><td>Bold</td><td>primary</td></tr>
+<tr><td class="tn">.sectionTitle()</td><td class="tv">.appHeadline</td><td>28</td><td>Bold</td><td>primary</td></tr>
+<tr><td class="tn">.cardTitle()</td><td class="tv">.appCardTitle</td><td>20</td><td>Semibold</td><td>primary</td></tr>
+<tr><td class="tn">.bodyMedium()</td><td class="tv">.appBodyMedium</td><td>20</td><td>Medium</td><td>primary</td></tr>
+<tr><td class="tn">.bodyPrimary()</td><td class="tv">.appBody</td><td>16</td><td>Regular</td><td>primary</td></tr>
+<tr><td class="tn">.bodySecondary()</td><td class="tv">.appBody</td><td>16</td><td>Regular</td><td>secondary</td></tr>
+<tr><td class="tn">.appButtonText</td><td class="tv">.appButtonText</td><td>16</td><td>Semibold</td><td>—</td></tr>
+<tr><td class="tn">.textLink()</td><td class="tv">.appTextLink</td><td>15</td><td>Medium</td><td>secondary</td></tr>
+<tr><td class="tn">.label()</td><td class="tv">.appFootnote</td><td>14</td><td>Regular</td><td>secondary</td></tr>
+<tr><td class="tn">.caption()</td><td class="tv">.appCaption</td><td>14</td><td>Regular</td><td>secondary</td></tr>
+<tr><td class="tn">.captionTertiary()</td><td class="tv">.appCaption</td><td>14</td><td>Regular</td><td>tertiary</td></tr>
+</tbody></table></section>
+<!-- 04 SPACING -->
+<section id="spacing" class="fi"><div class="sl">04 · Spacing & Layout</div><div class="stl">Spatial System</div><div class="sd">4pt grid scale. All spacing via the Spacing enum. All radii via CornerRadius.</div>
+<div class="spd"><div class="spb"><div class="bar" style="height:4px"></div><div class="lbl">xxs</div><div class="val">4</div></div><div class="spb"><div class="bar" style="height:8px"></div><div class="lbl">xs</div><div class="val">8</div></div><div class="spb"><div class="bar" style="height:12px"></div><div class="lbl">sm</div><div class="val">12</div></div><div class="spb"><div class="bar" style="height:16px"></div><div class="lbl">md</div><div class="val">16</div></div><div class="spb"><div class="bar" style="height:20px"></div><div class="lbl">lg</div><div class="val">20</div></div><div class="spb"><div class="bar" style="height:24px"></div><div class="lbl">xl</div><div class="val">24</div></div><div class="spb"><div class="bar" style="height:32px"></div><div class="lbl">xxl</div><div class="val">32</div></div><div class="spb"><div class="bar" style="height:40px"></div><div class="lbl">xxxl</div><div class="val">40</div></div></div>
+<table class="tok"><thead><tr><th>Alias</th><th>Base</th><th>Pt</th><th>Usage</th></tr></thead><tbody>
+<tr><td class="tn">cardPadding</td><td class="tv">md</td><td>16</td><td>Card inner padding</td></tr>
+<tr><td class="tn">listHorizontal</td><td class="tv">md</td><td>16</td><td>List horizontal inset</td></tr>
+<tr><td class="tn">headerHorizontal</td><td class="tv">xl</td><td>24</td><td>Screen title inset</td></tr>
+<tr><td class="tn">contentHorizontal</td><td class="tv">lg</td><td>20</td><td>Modal/flow content inset</td></tr>
+<tr><td class="tn">narrowText</td><td class="tv">xxl</td><td>32</td><td>Subtitle narrow margins</td></tr>
+<tr><td class="tn">screenTop</td><td class="tv">xxxl</td><td>40</td><td>Top of screen</td></tr>
+<tr><td class="tn">sectionSpacing</td><td class="tv">xxl</td><td>32</td><td>Between sections</td></tr>
+<tr><td class="tn">cardSpacing</td><td class="tv">sm</td><td>12</td><td>Between cards</td></tr>
+</tbody></table>
+<h3 class="sub">Corner Radius</h3>
+<div class="rd"><div class="ri" style="border-radius:8px">8</div><div class="ri" style="border-radius:10px">10</div><div class="ri" style="border-radius:12px">12</div><div class="ri" style="border-radius:16px">16</div><div class="ri" style="border-radius:20px">20</div></div>
+<table class="tok"><thead><tr><th>Token</th><th>Pt</th><th>Usage</th></tr></thead><tbody>
+<tr><td class="tn">small</td><td>8</td><td>Small elements (action cards)</td></tr>
+<tr><td class="tn">selector</td><td>10</td><td>Language/theme selectors</td></tr>
+<tr><td class="tn">button</td><td>12</td><td>Buttons, text inputs</td></tr>
+<tr><td class="tn">card</td><td>16</td><td>Content cards</td></tr>
+<tr><td class="tn">modal</td><td>20</td><td>Modal sheets</td></tr>
+</tbody></table></section>
+
+<!-- 05 COMPONENTS -->
+<section id="comp" class="fi"><div class="sl">05 · Components</div><div class="stl">Component Library</div><div class="sd">Atomic building blocks: buttons, cards, selectors, compound components.</div>
+
+<h3 class="sub">Buttons</h3>
+<div class="dr"><button class="bp">Primary</button><button class="bsec">Secondary</button><button class="bsuc">Success</button><button class="bdis">Disabled</button><button class="btl">Text Link ›</button></div>
+<table class="tok"><thead><tr><th>Variant</th><th>Font</th><th>Background</th><th>Text</th><th>Usage</th></tr></thead><tbody>
+<tr><td class="tn">PrimaryButtonStyle</td><td class="tv">.appButtonText</td><td class="tv">primary</td><td>white</td><td>Main CTA per screen</td></tr>
+<tr><td class="tn">SecondaryButtonStyle</td><td class="tv">.appButtonText</td><td class="tv">accent@18%</td><td>text primary</td><td>Alternative action</td></tr>
+<tr><td class="tn">ConditionalButtonStyle</td><td class="tv">.appButtonText</td><td class="tv">primary/disabled</td><td>white</td><td>Conditional CTA</td></tr>
+<tr><td class="tn">.textLink()</td><td class="tv">.appTextLink</td><td class="tv">transparent</td><td>text secondary</td><td>Cancel, Skip, Links</td></tr>
+<tr><td class="tn">ScaleButtonStyle</td><td class="tv">—</td><td class="tv">—</td><td>—</td><td>Press animation wrapper</td></tr>
+</tbody></table>
+<div class="dd"><div class="ddo"><strong>✓ Do</strong><br>One Primary per screen. Pair with Secondary for alternatives. Use textLink for dismissive actions.</div><div class="ddn"><strong>✗ Don't</strong><br>Two Primary buttons side by side. Hardcoded colors. Missing press feedback.</div></div>
+
+<h3 class="sub">Selectors</h3>
+<div class="dr" style="gap:24px"><div style="display:flex;gap:8px"><button class="sb a">Українська</button><button class="sb">English</button></div><div style="display:flex;gap:8px"><button class="sb a">☀ Light</button><button class="sb">☾ Dark</button><button class="sb">◐ Auto</button></div></div>
+<table class="tok"><thead><tr><th>State</th><th>Background</th><th>Text</th><th>Radius</th></tr></thead><tbody>
+<tr><td class="tn">Active</td><td class="tv">primary</td><td>white</td><td class="tv">selector (10)</td></tr>
+<tr><td class="tn">Inactive</td><td class="tv">cardBackground()</td><td>text primary</td><td class="tv">selector (10)</td></tr>
+</tbody></table>
+
+<h3 class="sub">Cards</h3>
+<table class="tok"><thead><tr><th>Variant</th><th>Background</th><th>Modifier</th><th>Usage</th></tr></thead><tbody>
+<tr><td class="tn">Standard Card</td><td class="tv">cardBackground()</td><td class="tv">.standardCard()</td><td>Default content card</td></tr>
+<tr><td class="tn">Accent Card</td><td class="tv">softAccent()</td><td class="tv">.accentCard()</td><td>Special / highlighted</td></tr>
+</tbody></table>
+
+<h3 class="sub">Compound Components</h3>
+<table class="tok"><thead><tr><th>Component</th><th>Contains</th><th>SwiftUI</th><th>Usage</th></tr></thead><tbody>
+<tr><td class="tn">ScreenHeader</td><td>screenTitle + subtitle</td><td class="tv">ScreenHeader(title:subtitle:)</td><td>Centered screen header</td></tr>
+<tr><td class="tn">ScreenHeaderLeading</td><td>sectionTitle + subtitle</td><td class="tv">ScreenHeaderLeading(title:)</td><td>Leading screen header</td></tr>
+<tr><td class="tn">SectionHeaderRow</td><td>emoji + cardTitle</td><td class="tv">SectionHeaderRow(emoji:title:)</td><td>Section divider with emoji</td></tr>
+<tr><td class="tn">CloseButton</td><td>xmark icon</td><td class="tv">CloseButton(style:action:)</td><td>Modal dismiss</td></tr>
+</tbody></table></section>
+
+<!-- 06 STATES -->
+<section id="states" class="fi"><div class="sl">06 · States & Variations</div><div class="stl">Component States</div><div class="sd">Every interactive element has defined states for consistency and accessibility.</div>
+
+<h3 class="sub">Button States</h3>
+<div class="states-grid">
+<div class="state-item"><div class="s-label">Default</div><button class="bp" style="width:100%">Get Support</button></div>
+<div class="state-item"><div class="s-label">Pressed</div><button class="bp" style="width:100%;opacity:.85;transform:scale(.97)">Get Support</button></div>
+<div class="state-item"><div class="s-label">Disabled</div><button class="bdis" style="width:100%">Get Support</button></div>
+<div class="state-item"><div class="s-label">Success</div><button class="bsuc" style="width:100%">Get Support</button></div>
+</div>
+<div class="states-grid">
+<div class="state-item"><div class="s-label">Secondary Default</div><button class="bsec" style="width:100%">Skip</button></div>
+<div class="state-item"><div class="s-label">Secondary Pressed</div><button class="bsec" style="width:100%;opacity:.85">Skip</button></div>
+<div class="state-item"><div class="s-label">Text Link</div><button class="btl">Try something else</button></div>
+<div class="state-item"><div class="s-label">Text Link Hover</div><button class="btl" style="color:var(--primary)">Try something else</button></div>
+</div>
+
+<h3 class="sub">Card Variations</h3>
+<div class="states-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+<div class="state-item" style="text-align:left"><div class="s-label">Standard</div><div style="background:var(--card);border-radius:12px;padding:14px;margin-top:4px"><div style="font-size:20px;margin-bottom:4px">😌</div><div style="font-weight:600;font-size:14px">Calm state</div><div style="font-size:12px;color:var(--t2)">Description text</div></div></div>
+<div class="state-item" style="text-align:left"><div class="s-label">Accent</div><div style="background:var(--asoft);border-radius:12px;padding:14px;margin-top:4px"><div style="font-size:20px;margin-bottom:4px">🫂</div><div style="font-weight:600;font-size:14px">Special card</div><div style="font-size:12px;color:var(--t2)">Highlighted content</div></div></div>
+<div class="state-item" style="text-align:left"><div class="s-label">Insight</div><div style="background:var(--card);border-radius:12px;padding:14px;margin-top:4px"><div style="color:var(--primary);font-size:16px;margin-bottom:4px">📊</div><div style="font-weight:700;font-size:18px">7</div><div style="font-size:12px;color:var(--t2)">Self-care moments</div></div></div>
+<div class="state-item" style="text-align:left"><div class="s-label">Action</div><div style="background:var(--card);border-radius:12px;padding:14px;margin-top:4px"><div style="font-weight:600;font-size:14px;margin-bottom:6px">Take 3 deep breaths</div><div style="display:flex;gap:6px"><span style="padding:6px 12px;border-radius:8px;background:var(--primary);color:white;font-size:11px;font-weight:600">Done</span><span style="padding:6px 12px;border-radius:8px;background:var(--bsec);font-size:11px;font-weight:600">Not now</span></div></div></div>
+</div>
+
+<h3 class="sub">Selector States</h3>
+<div class="states-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+<div class="state-item"><div class="s-label">Active</div><div style="padding:8px;border-radius:10px;background:var(--primary);color:white;font-weight:600;font-size:14px">Українська</div></div>
+<div class="state-item"><div class="s-label">Inactive</div><div style="padding:8px;border-radius:10px;background:var(--card);font-weight:600;font-size:14px">English</div></div>
+<div class="state-item"><div class="s-label">Period Pill Active</div><div style="padding:6px 12px;border-radius:8px;background:var(--primary);color:white;font-size:12px;font-weight:600">Week</div></div>
+<div class="state-item"><div class="s-label">Period Pill Inactive</div><div style="padding:6px 12px;border-radius:8px;background:var(--card);font-size:12px;font-weight:600">Month</div></div>
+</div>
+
+<h3 class="sub">Mood Selection States</h3>
+<div class="states-grid" style="grid-template-columns:repeat(3,1fr)">
+<div class="state-item"><div class="s-label">Safe</div><div style="background:rgba(230,102,102,.12);border-radius:12px;padding:14px;text-align:center"><div style="font-size:36px">😌</div><div style="font-size:14px;font-weight:500;margin-top:4px">I'm okay</div></div></div>
+<div class="state-item"><div class="s-label">Gentle</div><div style="background:rgba(242,204,102,.12);border-radius:12px;padding:14px;text-align:center"><div style="font-size:36px">😐</div><div style="font-size:14px;font-weight:500;margin-top:4px">Not great</div></div></div>
+<div class="state-item"><div class="s-label">Air</div><div style="background:rgba(128,217,153,.12);border-radius:12px;padding:14px;text-align:center"><div style="font-size:36px">😔</div><div style="font-size:14px;font-weight:500;margin-top:4px">Need help</div></div></div>
+</div></section>
+<!-- 07 SCREENS -->
+<section id="screens" class="fi"><div class="sl">07 · Screen Patterns</div><div class="stl">Screen Templates</div><div class="sd">Every screen follows a consistent template. Here are the 6 core patterns with structure breakdowns.</div>
+
+<!-- Selection Screen -->
+<div class="screen-row">
+<div class="screen-img">
+<img src="selection.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" alt="Selection Screen">
+<div class="placeholder" style="display:none">📱 Selection Screen<br><br>Replace <code>selection.png</code><br>with your screenshot</div>
+</div>
+<div class="screen-desc">
+<h4>📱 Selection Screen</h4>
+<p>Entry point of every session. User selects their current emotional state. Centered header with subtitle, then scrollable cards. Special accent card at bottom for "Just Be Together".</p>
+<div><span class="tag">ScreenHeader</span><span class="tag">MoodCard</span><span class="tag">AccentCard</span></div>
+<table class="tok" style="margin-top:16px"><thead><tr><th>Element</th><th>Style</th></tr></thead><tbody>
+<tr><td class="tn">Title</td><td class="tv">.screenTitle() — 32pt Merriweather centered</td></tr>
+<tr><td class="tn">Subtitle</td><td class="tv">.subtitle() — 16pt secondary centered</td></tr>
+<tr><td class="tn">State name</td><td class="tv">.bodyMedium() — 20pt medium</td></tr>
+<tr><td class="tn">State desc</td><td class="tv">.caption() — 14pt secondary</td></tr>
+<tr><td class="tn">Special card</td><td class="tv">.accentCard() — softAccent bg</td></tr>
+</tbody></table>
+<p style="font-size:12px;color:var(--t3)">File: SelectionView.swift</p>
+</div>
+</div>
+
+<!-- Action Flow -->
+<div class="screen-row">
+<div class="screen-img">
+<img src="action.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" alt="Action Flow">
+<div class="placeholder" style="display:none">📱 Action Flow<br><br>Replace <code>action.png</code><br>with your screenshot</div>
+</div>
+<div class="screen-desc">
+<h4>🎯 Action Flow</h4>
+<p>After mood selection, the app suggests a self-care action. User can complete it, skip, or request a different one. CloseButton in top-right. Primary + Secondary buttons. Text link at bottom.</p>
+<div><span class="tag">CloseButton</span><span class="tag">ImprovedActionCard</span><span class="tag">PrimaryBtn</span><span class="tag">SecondaryBtn</span><span class="tag">.textLink()</span></div>
+<table class="tok" style="margin-top:16px"><thead><tr><th>Element</th><th>Style</th></tr></thead><tbody>
+<tr><td class="tn">Section title</td><td class="tv">.sectionTitle() — 28pt Merriweather</td></tr>
+<tr><td class="tn">Action name</td><td class="tv">.cardTitle() — 20pt semibold</td></tr>
+<tr><td class="tn">Description</td><td class="tv">.bodySecondary() — 16pt secondary</td></tr>
+<tr><td class="tn">CTA</td><td class="tv">PrimaryButtonStyle — appButtonText</td></tr>
+<tr><td class="tn">Skip</td><td class="tv">SecondaryButtonStyle</td></tr>
+<tr><td class="tn">Change</td><td class="tv">.textLink() — 15pt medium</td></tr>
+</tbody></table>
+<p style="font-size:12px;color:var(--t3)">File: ImprovedActionCard.swift</p>
+</div>
+</div>
+
+<!-- Journal Screen -->
+<div class="screen-row">
+<div class="screen-img">
+<img src="journal.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" alt="Journal">
+<div class="placeholder" style="display:none">📱 Journal<br><br>Replace <code>journal.png</code><br>with your screenshot</div>
+</div>
+<div class="screen-desc">
+<h4>📊 Journal Screen</h4>
+<p>Historical view of mood entries, completed actions, and anchor notes. Period picker (day/week/month/half-year), BarMark chart in a swipeable TabView, insight cards with counts, then action and anchor lists.</p>
+<div><span class="tag">ScreenHeaderLeading</span><span class="tag">PeriodPicker</span><span class="tag">BarMark Chart</span><span class="tag">InsightCard</span><span class="tag">SectionHeaderRow</span></div>
+<table class="tok" style="margin-top:16px"><thead><tr><th>Element</th><th>Style</th></tr></thead><tbody>
+<tr><td class="tn">Screen title</td><td class="tv">.sectionTitleLeading() — 28pt leading</td></tr>
+<tr><td class="tn">Chart label</td><td class="tv">.caption() — 14pt secondary</td></tr>
+<tr><td class="tn">Chart axis</td><td class="tv">.appCaption2 — 11pt</td></tr>
+<tr><td class="tn">Insight value</td><td class="tv">.cardTitle() — 20pt semibold</td></tr>
+<tr><td class="tn">Insight label</td><td class="tv">.caption() — 14pt secondary</td></tr>
+<tr><td class="tn">Section header</td><td class="tv">SectionHeaderRow — emoji + cardTitle</td></tr>
+</tbody></table>
+<p style="font-size:12px;color:var(--t3)">Files: JournalView + JournalChartView + InsightsView</p>
+</div>
+</div>
+
+<!-- Just Be Together -->
+<div class="screen-row">
+<div class="screen-img">
+<img src="together.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" alt="Just Be Together">
+<div class="placeholder" style="display:none">📱 Just Be Together<br><br>Replace <code>together.png</code><br>with your screenshot</div>
+</div>
+<div class="screen-desc">
+<h4>🫂 Just Be Together</h4>
+<p>Full-screen calming presence. Gradient breathing circle with blur, subtle scale animation (4s loop), heartbeat haptic (1.8s interval). No required actions — user simply exists in the space. Optional ambient sound toggle.</p>
+<div><span class="tag">CloseButton</span><span class="tag">BreathingCircle</span><span class="tag">.screenTitle()</span><span class="tag">.subtitle()</span><span class="tag">HapticPulse</span></div>
+<table class="tok" style="margin-top:16px"><thead><tr><th>Element</th><th>Style</th></tr></thead><tbody>
+<tr><td class="tn">Title</td><td class="tv">.screenTitle() — 32pt Merriweather centered</td></tr>
+<tr><td class="tn">Subtitle</td><td class="tv">.subtitle() — 16pt secondary centered</td></tr>
+<tr><td class="tn">Sound label</td><td class="tv">.caption() — 14pt tertiary</td></tr>
+<tr><td class="tn">Circle</td><td class="tv">Gradient + blur + scale(4s easeInOut)</td></tr>
+</tbody></table>
+<p style="font-size:12px;color:var(--t3)">File: JustBeTogetherView.swift</p>
+</div>
+</div>
+
+<!-- Completion -->
+<div class="screen-row">
+<div class="screen-img">
+<img src="completion.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" alt="Completion">
+<div class="placeholder" style="display:none">📱 Completion<br><br>Replace <code>completion.png</code><br>with your screenshot</div>
+</div>
+<div class="screen-desc">
+<h4>✨ Completion Screen</h4>
+<p>Celebration after completing a self-care action. Large emoji, encouraging title and subtitle, optional anchor note text input, Primary CTA. Confetti animation plays on appear.</p>
+<div><span class="tag">emojiLarge (48pt)</span><span class="tag">ScreenHeader</span><span class="tag">TextEditor</span><span class="tag">PrimaryBtn</span><span class="tag">ConfettiView</span></div>
+<table class="tok" style="margin-top:16px"><thead><tr><th>Element</th><th>Style</th></tr></thead><tbody>
+<tr><td class="tn">Emoji</td><td class="tv">.emojiLarge — 48pt</td></tr>
+<tr><td class="tn">Title</td><td class="tv">.screenTitle() — 32pt Merriweather</td></tr>
+<tr><td class="tn">Subtitle</td><td class="tv">.subtitle() — 16pt secondary</td></tr>
+<tr><td class="tn">Input label</td><td class="tv">.caption() — 14pt tertiary</td></tr>
+<tr><td class="tn">CTA</td><td class="tv">PrimaryButtonStyle</td></tr>
+</tbody></table>
+<p style="font-size:12px;color:var(--t3)">File: SupportCompletionView.swift</p>
+</div>
+</div>
+
+<!-- Profile -->
+<div class="screen-row">
+<div class="screen-img">
+<img src="profile.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" alt="Profile / Settings">
+<div class="placeholder" style="display:none">📱 Profile / Settings<br><br>Replace <code>profile.png</code><br>with your screenshot</div>
+</div>
+<div class="screen-desc">
+<h4>⚙️ Profile / Settings</h4>
+<p>Language and theme selectors, donate card with secondary CTA, privacy policy text link. No Primary buttons — this is a configuration screen. Selectors use appButtonText for both states.</p>
+<div><span class="tag">SectionTitleLeading</span><span class="tag">LanguageSelector</span><span class="tag">ThemeSelector</span><span class="tag">DonateCard</span><span class="tag">.textLink()</span></div>
+<table class="tok" style="margin-top:16px"><thead><tr><th>Element</th><th>Style</th></tr></thead><tbody>
+<tr><td class="tn">Screen title</td><td class="tv">.sectionTitleLeading() — 28pt leading</td></tr>
+<tr><td class="tn">Section label</td><td class="tv">.label() — 14pt secondary</td></tr>
+<tr><td class="tn">Selector text</td><td class="tv">.appButtonText — 16pt semibold</td></tr>
+<tr><td class="tn">Donate text</td><td class="tv">.subtitleLeading() — 16pt secondary</td></tr>
+<tr><td class="tn">Privacy link</td><td class="tv">.textLink() — 15pt medium secondary</td></tr>
+</tbody></table>
+<p style="font-size:12px;color:var(--t3)">File: ProfileView.swift</p>
+</div>
+</div>
+</section>
+
+<!-- 08 A11Y -->
+<section id="a11y" class="fi"><div class="sl">08 · Accessibility</div><div class="stl">Inclusive Design</div><div class="sd">An app for people in crisis. Accessibility is not optional — it's essential.</div>
+<div class="ag">
+<div class="ac"><div class="ico">🎨</div><h4>Contrast Ratios</h4><p>All text pairs meet WCAG AA (4.5:1 body, 3:1 large). Warm grays maintain contrast without coldness. Tested for both light and dark themes.</p></div>
+<div class="ac"><div class="ico">🔤</div><h4>Dynamic Type</h4><p>All Font.system tokens support Dynamic Type automatically. Merriweather via Font.custom has a fixed size fallback with generous line heights.</p></div>
+<div class="ac"><div class="ico">🗣️</div><h4>VoiceOver</h4><p>Mood cards use .accessibilityLabel with full descriptions. Buttons have semantic roles. Charts use .accessibilityHidden with text summaries.</p></div>
+<div class="ac"><div class="ico">📳</div><h4>Haptic Feedback</h4><p>Heartbeat (.soft) in Just Be Together. Success (.notification) on save. Impact (.light) on button taps. Never startling, always grounding.</p></div>
+<div class="ac"><div class="ico">🌙</div><h4>Dark Mode</h4><p>All colors adapt via UIColor traitCollection. Separate hex values for each theme. Background, card, and text colors all switch independently.</p></div>
+<div class="ac"><div class="ico">🎯</div><h4>Touch Targets</h4><p>Minimum 44×44pt for all interactive elements. CloseButton: 30pt visual size, 44pt hit area. Cards have full-area tap targets.</p></div>
+</div></section>
+
+<!-- 09 MOTION -->
+<section id="motion" class="fi"><div class="sl">09 · Motion</div><div class="stl">Animation Tokens</div><div class="sd">Motion should calm, not distract. Slow, smooth, predictable transitions.</div>
+<table class="tok"><thead><tr><th>Token</th><th>Duration</th><th>Easing</th><th>Usage</th></tr></thead><tbody>
+<tr><td class="tn">breathing</td><td class="tv">4s</td><td class="tv">easeInOut, repeat</td><td>Breathing circle scale animation</td></tr>
+<tr><td class="tn">heartbeat</td><td class="tv">1.8s interval</td><td class="tv">—</td><td>Haptic pulse (.soft + 0.4s delay)</td></tr>
+<tr><td class="tn">pageTransition</td><td class="tv">0.3s</td><td class="tv">easeInOut</td><td>Flow step transitions</td></tr>
+<tr><td class="tn">cardAppear</td><td class="tv">0.3s</td><td class="tv">scale + opacity</td><td>Completed action appearance</td></tr>
+<tr><td class="tn">buttonPress</td><td class="tv">0.15s</td><td class="tv">easeInOut</td><td>ScaleButtonStyle (0.95)</td></tr>
+<tr><td class="tn">confetti</td><td class="tv">2s</td><td class="tv">linear</td><td>Completion celebration</td></tr>
+<tr><td class="tn">supportOffer</td><td class="tv">0.5s, 5s delay</td><td class="tv">easeIn + move</td><td>Support button reveal</td></tr>
+</tbody></table>
+<div class="dd"><div class="ddo"><strong>✓ Do</strong><br>Slow animations (3-4s) for ambient elements. Fast (0.15-0.3s) for interaction feedback. Predictable, looping motions.</div><div class="ddn"><strong>✗ Don't</strong><br>Abrupt transitions, flashing, aggressive bounce. This app serves people in distress.</div></div></section>
+
+<!-- 10 HANDOFF -->
+<section id="handoff" class="fi"><div class="sl">10 · Handoff & Architecture</div><div class="stl">Implementation Guide</div><div class="sd">File structure, naming rules, and governance for the design system.</div>
+<h3 class="sub">File Structure</h3>
+<table class="tok"><thead><tr><th>File</th><th>Responsibility</th><th>Edit When</th></tr></thead><tbody>
+<tr><td class="tn">FontExtension.swift</td><td>All font sizes and weights</td><td>Changing any text size</td></tr>
+<tr><td class="tn">AppText.swift</td><td>Text modifiers + compound components</td><td>Adding new text style</td></tr>
+<tr><td class="tn">ColorPalette.swift</td><td>All colors (brand, text, bg, mood)</td><td>Changing any color</td></tr>
+<tr><td class="tn">Spacing.swift</td><td>Spacing scale + corner radii</td><td>Changing layout spacing</td></tr>
+<tr><td class="tn">ButtonStyles.swift</td><td>Button style definitions</td><td>Changing button appearance</td></tr>
+<tr><td class="tn">ViewExtensions.swift</td><td>Card modifiers, CloseButton</td><td>Changing card or dismiss styles</td></tr>
+</tbody></table>
+<h3 class="sub">Naming Conventions</h3>
+<table class="tok"><thead><tr><th>Layer</th><th>Pattern</th><th>Example</th></tr></thead><tbody>
+<tr><td>Font token</td><td class="tv">.app{Role}</td><td class="tn">.appCardTitle, .appButtonText</td></tr>
+<tr><td>Text modifier</td><td class="tv">.{role}()</td><td class="tn">.screenTitle(), .bodyPrimary()</td></tr>
+<tr><td>Color</td><td class="tv">{semantic}{Theme}</td><td class="tn">textSecondaryLight, nightCard</td></tr>
+<tr><td>Spacing</td><td class="tv">Spacing.{size}</td><td class="tn">Spacing.md, .cardPadding</td></tr>
+<tr><td>Radius</td><td class="tv">CornerRadius.{size}</td><td class="tn">CornerRadius.card, .button</td></tr>
+</tbody></table>
+<div class="dd"><div class="ddo"><strong>✓ Do</strong><br>Always use tokens: <code>.font(.appBody)</code>, <code>Spacing.md</code>, <code>CornerRadius.card</code>. One file per concern. One place to change.</div><div class="ddn"><strong>✗ Don't</strong><br>Hardcode: <code>.font(.subheadline)</code>, <code>Color.gray</code>, <code>padding(16)</code>, <code>.cornerRadius(12)</code>. Breaks system consistency.</div></div>
+<h3 class="sub">Governance</h3>
+<div class="card"><p style="font-size:14px;color:var(--t2);line-height:1.8">
+<strong style="color:var(--t1)">Adding a style:</strong> Token → FontExtension → Modifier → AppText → Use in Views<br>
+<strong style="color:var(--t1)">Changing a color:</strong> Edit hex in ColorPalette.swift (both light + dark) → propagates everywhere<br>
+<strong style="color:var(--t1)">New component:</strong> Use existing tokens. Don't invent new sizes without clear need.<br>
+<strong style="color:var(--t1)">Versioning:</strong> v2.1 = new tokens · v3.0 = breaking changes</p></div></section>
+
+<footer><p>StillSpace Design System · v2.0 · Built with <span style="color:var(--accent)">♥</span> for people who need it most</p><p style="margin-top:6px">ColorPalette · FontExtension · AppText · Spacing · ButtonStyles · ViewExtensions</p></footer>
+<style>@keyframes pulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.08);opacity:1}}</style>
+<script>function toggleTheme(){const b=document.body,d=b.getAttribute('data-theme')==='dark';b.setAttribute('data-theme',d?'':'dark');document.querySelector('.tt-btn').textContent=d?'☀':'☾'}const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')})},{threshold:.1});document.querySelectorAll('.fi').forEach(el=>o.observe(el));</script>
+</body></html>
