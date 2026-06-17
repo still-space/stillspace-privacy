@@ -83,7 +83,7 @@
         .section p { font-size: 15px; color: var(--muted); line-height: 1.7; }
         .section p + p { margin-top: 12px; }
 
-        .section ol {
+        .section ol, .section ul {
             font-size: 15px;
             color: var(--muted);
             line-height: 1.7;
@@ -91,7 +91,7 @@
             padding-left: 24px;
         }
 
-        .section ol li { margin-bottom: 4px; }
+        .section ol li, .section ul li { margin-bottom: 4px; }
 
         .contact-link { color: var(--primary); text-decoration: none; }
         .contact-link:hover { text-decoration: underline; }
@@ -120,7 +120,7 @@
         <div class="section">
             <h2>Where your data lives</h2>
             <p>All your entries &#8212; mood journal, completed actions, chat history, settings &#8212; are stored on your iPhone or iPad and encrypted using AES-256-GCM (Apple CryptoKit). Encryption keys are stored in your iCloud Keychain and never leave Apple&#8217;s infrastructure.</p>
-            <p>If you are signed in to iCloud, your data may sync between your own devices through Apple&#8217;s CloudKit service. This sync happens entirely through Apple&#8217;s infrastructure &#8212; we have no access to your synced data and cannot read, share, or use it.</p>
+            <p>If you are signed in to iCloud, certain data may sync between your own devices through Apple&#8217;s iCloud Key-Value Storage. This sync happens entirely through Apple&#8217;s infrastructure &#8212; we have no access to your synced data and cannot read, share, or use it.</p>
         </div>
 
         <div class="section">
@@ -129,6 +129,7 @@
             <ol>
                 <li>Your message is sent through our service (hosted on Cloudflare) to Anthropic&#8217;s Claude API for processing.</li>
                 <li>To help the AI remember context from past conversations, we may also send recent chat summaries and mood entries from your device.</li>
+                <li>With each request, we send anonymous metadata: a randomly generated device identifier (used to enforce daily message limits), your app language, and your country (used to comply with regional requirements). This identifier is not linked to your name, email, or any personal account.</li>
                 <li>The AI&#8217;s response is sent back to you.</li>
             </ol>
             <p>We do not permanently store your chat conversations on our servers. Cloudflare and Anthropic may temporarily process and log request metadata as part of standard service operation. Anthropic&#8217;s data practices are governed by their <a href="https://www.anthropic.com/privacy" class="contact-link">Privacy Policy</a>.</p>
@@ -137,7 +138,12 @@
 
         <div class="section">
             <h2>Voice input</h2>
-            <p>Still Space supports voice input for journaling and chat. Speech recognition is performed entirely on your device using Apple&#8217;s built-in Speech framework. No audio data is sent to our servers or any third party.</p>
+            <p>Still Space supports voice input for journaling and chat. Speech recognition uses Apple&#8217;s built-in Speech framework.</p>
+            <ul>
+                <li><strong>For English:</strong> Speech recognition is performed entirely on your device.</li>
+                <li><strong>For Russian and Ukrainian:</strong> Speech recognition is processed by Apple&#8217;s servers, as on-device recognition is not yet available for these languages on iOS. Apple&#8217;s data practices for Speech Recognition are described in <a href="https://www.apple.com/legal/privacy/" class="contact-link">Apple&#8217;s Privacy Policy</a>.</li>
+            </ul>
+            <p>We do not have access to your voice recordings or transcriptions. No audio data is sent to our servers.</p>
         </div>
 
         <div class="section">
@@ -147,27 +153,46 @@
 
         <div class="section">
             <h2>Anonymous analytics (with your consent)</h2>
-            <p>Still Space uses Amplitude to collect anonymous usage statistics &#8212; only with your explicit consent. We see which screens are opened, which actions are popular, and the general reasons you chose the app (e.g. stress, anxiety, sleep). This helps us improve the experience. No personal data or journal text is shared. You can disable analytics at any time in Settings.</p>
+            <p>Still Space uses Amplitude to collect anonymous usage statistics &#8212; only with your explicit consent given during onboarding.</p>
+            <p>We see:</p>
+            <ul>
+                <li>Which screens are opened</li>
+                <li>Which features are used</li>
+                <li>The general reasons you indicated for choosing the app (e.g. stress, anxiety, sleep) &#8212; used in aggregate to improve features</li>
+            </ul>
+            <p>We do NOT share:</p>
+            <ul>
+                <li>Journal entries</li>
+                <li>Chat messages</li>
+                <li>Mood data</li>
+                <li>Any text you write</li>
+            </ul>
+            <p>You can disable analytics at any time in Settings.</p>
         </div>
 
         <div class="section">
             <h2>Push notifications</h2>
-            <p>Still Space may send local reminders to help you maintain your self-care routine. These notifications are scheduled entirely on your device. No notification data is sent to our servers. You can manage notification settings within the app or in your device Settings.</p>
+            <p>Still Space may send reminders to help you maintain your self-care routine. Most notifications are scheduled locally on your device. The app uses Apple Push Notification service (APNs) to support delivery of notifications even when the app is not running. We do not send notification content through APNs &#8212; only delivery triggers. No personal data is included in push notifications. You can manage notification settings within the app or in your device Settings.</p>
         </div>
 
         <div class="section">
             <h2>Subscriptions &amp; Payments</h2>
-            <p>Still Space offers an optional auto-renewable subscription managed entirely through Apple&#8217;s App Store. We do not collect, store, or have access to your payment information. All transactions are processed by Apple. You can manage or cancel your subscription at any time in your device Settings &#8594; Apple&nbsp;ID &#8594; Subscriptions. For full terms, see <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" class="contact-link">Apple&#8217;s Standard EULA</a>.</p>
+            <p>Still Space offers optional auto-renewable subscriptions managed entirely through Apple&#8217;s App Store. We do not collect, store, or have access to your payment information. All transactions are processed by Apple. You can manage or cancel your subscription at any time in your device Settings &#8594; Apple&nbsp;ID &#8594; Subscriptions. For full terms, see <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" class="contact-link">Apple&#8217;s Standard EULA</a>.</p>
         </div>
 
         <div class="section">
-            <h2>No registration or accounts</h2>
-            <p>Still Space does not require creating an account, logging in via email or social networks. You just open the app and use it. No passwords, no profiles, no risk of data breaches.</p>
+            <h2>No registration required</h2>
+            <p>Still Space does not require creating an account, logging in via email or social networks. You just open the app and use it. No passwords, no profiles.</p>
         </div>
 
         <div class="section">
             <h2>Data deletion</h2>
-            <p>Your data is stored on your device and may be synced via iCloud between your own devices. To permanently delete all data &#8212; including iCloud copies &#8212; use the &#8220;Delete all data&#8221; button in Settings before removing the app. If you simply delete the app, data stored in your iCloud account may remain. No data is ever stored on our servers.</p>
+            <p>Your data is stored on your device and may be synced via iCloud between your own devices. To permanently delete all data &#8212; including iCloud copies &#8212; use the &#8220;Delete all data&#8221; button in Settings before removing the app. If you simply delete the app, data synced to your iCloud account may remain. No data is ever stored on our servers.</p>
+        </div>
+
+        <div class="section">
+            <h2>Children</h2>
+            <p>Still Space is intended for users 18 years or older (or the age of legal majority in your jurisdiction). We do not knowingly collect data from children.</p>
         </div>
 
         <div class="section">
