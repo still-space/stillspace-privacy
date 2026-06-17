@@ -81,6 +81,17 @@
         }
 
         .section p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+        .section p + p { margin-top: 12px; }
+
+        .section ol {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 8px 0;
+            padding-left: 24px;
+        }
+
+        .section ol li { margin-bottom: 4px; }
 
         .contact-link { color: var(--primary); text-decoration: none; }
         .contact-link:hover { text-decoration: underline; }
@@ -103,27 +114,35 @@
 
         <div class="highlight-card">
             <h2>Your privacy is our priority</h2>
-            <p>Still Space does not collect or share any personal information with third parties. The app does not show ads and does not track you outside the app.</p>
+            <p>Still Space does not collect or share your personal information with advertisers, data brokers, or marketing partners. The app does not show ads and does not track you across other apps or websites.</p>
         </div>
 
         <div class="section">
-            <h2>All data is stored on your device</h2>
-            <p>All your entries &#8212; mood journal, completed actions, support notes, settings &#8212; are stored on your iPhone or iPad and encrypted using AES-256-GCM (Apple CryptoKit). If you are signed in to iCloud, your data may sync between your own devices via Apple&#8217;s iCloud Key-Value Storage. This sync happens entirely through Apple&#8217;s infrastructure &#8212; we have no access to this data and cannot see or use it.</p>
+            <h2>Where your data lives</h2>
+            <p>All your entries &#8212; mood journal, completed actions, chat history, settings &#8212; are stored on your iPhone or iPad and encrypted using AES-256-GCM (Apple CryptoKit). Encryption keys are stored in your iCloud Keychain and never leave Apple&#8217;s infrastructure.</p>
+            <p>If you are signed in to iCloud, your data may sync between your own devices through Apple&#8217;s CloudKit service. This sync happens entirely through Apple&#8217;s infrastructure &#8212; we have no access to your synced data and cannot read, share, or use it.</p>
         </div>
 
         <div class="section">
-            <h2>AI Chat</h2>
-            <p>Still Space includes an AI-powered support chat. When you use it, your messages are sent to Anthropic&#8217;s API (Claude) for processing. We send only the current conversation &#8212; no personal identifiers, journal entries, or other app data. Chat history is stored only on your device and is not linked to your identity. You can delete all chat data at any time in Settings.</p>
+            <h2>AI chat</h2>
+            <p>Still Space includes an AI chat feature. When you send a message:</p>
+            <ol>
+                <li>Your message is sent through our service (hosted on Cloudflare) to Anthropic&#8217;s Claude API for processing.</li>
+                <li>To help the AI remember context from past conversations, we may also send recent chat summaries and mood entries from your device.</li>
+                <li>The AI&#8217;s response is sent back to you.</li>
+            </ol>
+            <p>We do not permanently store your chat conversations on our servers. Cloudflare and Anthropic may temporarily process and log request metadata as part of standard service operation. Anthropic&#8217;s data practices are governed by their <a href="https://www.anthropic.com/privacy" class="contact-link">Privacy Policy</a>.</p>
+            <p>Your full chat history is stored only on your device, encrypted. You can delete all chat data at any time in Settings &#8594; Delete all data.</p>
+        </div>
+
+        <div class="section">
+            <h2>Voice input</h2>
+            <p>Still Space supports voice input for journaling and chat. Speech recognition is performed entirely on your device using Apple&#8217;s built-in Speech framework. No audio data is sent to our servers or any third party.</p>
         </div>
 
         <div class="section">
             <h2>Apple Health</h2>
             <p>With your explicit permission, Still Space can read data from Apple Health (sleep, activity, menstrual cycle). This data is used only to personalize your recommendations within the app. Health data is never sent to any server, never shared with third parties, and never used for analytics. You can revoke access at any time in your device Settings.</p>
-        </div>
-
-        <div class="section">
-            <h2>Voice input</h2>
-            <p>Still Space supports voice input for journaling. Speech recognition is performed entirely on your device using Apple&#8217;s built-in speech framework. No audio data is sent to our servers or any third party.</p>
         </div>
 
         <div class="section">
